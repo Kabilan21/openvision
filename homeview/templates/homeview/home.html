@@ -1,0 +1,13 @@
+{% extends 'homeview/index.html' %}
+{% block content %}
+<form method="POST" action="{% url 'addUser' %}">
+	{% csrf_token %}
+	<input name="username" type="text">
+	<button type="submit">Add user</button>
+</form>
+<form method="POST" action="{% url 'updatesystem' %}">
+	{% csrf_token %}
+	<button type="submit">update</button>
+</form>
+
+{% endblock %}
