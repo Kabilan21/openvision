@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from visionapi.adduser import addimage
 from .models import User
 from visionapi.updatesystem import updateapi
-from visionapi.recognition import main
+from visionapi.recognition import check
 
 
 def homePage(request):
@@ -27,5 +27,5 @@ def updatesystem(request):
 
 
 def startsystem(request):
-    main()
+    check()
     return HttpResponse("pass")

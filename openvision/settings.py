@@ -136,6 +136,10 @@ EMBEDDINGS = os.path.join(BASE_DIR, 'files/embeddings.pickle')
 
 TRAINING_ROLL = os.path.join(BASE_DIR, 'files/training_roll.pickle')
 
+identified = 'media/identified'
+
 IDENTIFIED = os.path.join(BASE_DIR, 'media/identified')
+
+unknown = 'media/unknown'
 
 UNKNOWN = os.path.join(BASE_DIR, 'media/unknown')

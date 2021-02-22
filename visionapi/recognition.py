@@ -2,17 +2,15 @@ import multiprocessing
 import cv2
 import pickle
 import numpy as np
-from tensorflow import keras
-from mtcnn.mtcnn import MTCNN
 from numpy import expand_dims
 from sklearn import svm
 import os
 from openvision.settings import FACENET, EMBEDDINGS, TRAINING_ROLL, DATASET, STATUS
 from sklearn.preprocessing import Normalizer
 from homeview.models import Attendance
+from visionapi.helpers import insertor
 
-detector = MTCNN()
-model = keras.models.load_model(FACENET)
+
 pickle_in = open(EMBEDDINGS, "rb")
 X = pickle.load(pickle_in)
 pickle_in = open(TRAINING_ROLL, "rb")
@@ -34,9 +32,13 @@ clf.fit(x, Y)
 
 
 def check():
+    from tensorflow import keras
+    from mtcnn.mtcnn import MTCNN
+    detector = MTCNN()
+    model = keras.models.load_model(FACENET)
     cap = cv2.VideoCapture(0)
-    cv2.namedWindow(f"camera:{camera_no}", cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(f"camera:{camera_no}", 640, 480)
+    cv2.namedWindow(f"camera", cv2.WINDOW_NORMAL)
+    cv2.resizeWindow(f"camera", 640, 480)
     while True and STATUS:
         _, frame = cap.read()
         frame = cv2.resize(frame, (640, 480))
@@ -71,13 +73,7 @@ def check():
                         cv2.putText(frame, "Unknown", (x, y), font,
                                     1, (0, 0, 255), 1, lineType=cv2.LINE_AA)
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 1)
-        cv2.imshow(f"camera:{camera_no}", frame)
+        cv2.imshow(f"camera", frame)
         if cv2.waitKey(5) & 0xFF == ord('q'):
             cv2.destroyAllWindows()
             break
-
-
-def main(camera_details):
-    process = multiprocessing.Process(target=check)
-    process.start()
-    process.join()
