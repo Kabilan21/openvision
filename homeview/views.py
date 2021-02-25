@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from openvision.settings import STATUS
 from django.http import HttpResponse
 from visionapi.adduser import addimage
 from .models import User
 from visionapi.updatesystem import updateapi
 from visionapi.recognition import check
+import json
 
 
 def homePage(request):
@@ -27,5 +27,13 @@ def updatesystem(request):
 
 
 def startsystem(request):
+    with open("files/controller.json", "w") as outfile:
+        json.dump({"status": True}, outfile)
     check()
     return HttpResponse("pass")
+
+
+def stopsystem(request):
+    with open("files/controller.json", "w") as outfile:
+        json.dump({"status": False}, outfile)
+    return HttpResponse("Stopped successfully...")

@@ -15,8 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-STATUS = True
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -26,6 +24,9 @@ SECRET_KEY = '5ce0sfr479%+@2za%96wbkkh6q_-*e%om6=xx@*t@d@(b6eu3g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+USE_INTEGERATED_WEB_CAM = False
+
+REMOTE_CAM_URL = 'http://192.168.137.230:8080/shot.jpg'
 
 ALLOWED_HOSTS = []
 
@@ -108,13 +109,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

@@ -28,7 +28,10 @@ def updateapi():
                                   (0, 0, 255), 1)
                     cv2.imshow("frame", frame)
                     cv2.waitKey(5)
-                    face = cv2.resize(roi_gray, (160, 160))
+                    try:
+                        face = cv2.resize(roi_gray, (160, 160))
+                    except:
+                        continue
                     face = face.astype('float32')
                     mean, std = face.mean(), face.std()
                     face = (face - mean) / std

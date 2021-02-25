@@ -15,4 +15,9 @@
 	<button type="submit">start recognition</button>
 </form>
 
+<form method="POST" action="{% url 'stopsystem' %}">
+	{% csrf_token %}
+	<button type="submit">stop recognition</button>
+</form>
+
 {% endblock %}
