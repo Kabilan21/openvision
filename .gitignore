@@ -6,3 +6,5 @@ migrations/
 .vscode/
 *.png
 files/
+media/identified/*
+media/unknown/*
