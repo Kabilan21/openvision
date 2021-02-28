@@ -8,3 +8,4 @@ migrations/
 files/
 media/identified/*
 media/unknown/*
+static/
