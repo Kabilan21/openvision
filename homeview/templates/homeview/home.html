@@ -1,23 +1,74 @@
 {% extends 'homeview/index.html' %}
 {% block content %}
-<form method="POST" action="{% url 'addUser' %}">
-	{% csrf_token %}
-	<input name="username" type="text">
-	<button type="submit">Add user</button>
-</form>
-<form method="POST" action="{% url 'updatesystem' %}">
-	{% csrf_token %}
-	<button type="submit">update</button>
-</form>
+<div class="container">
+	<div style="width: 100%;text-align:center;font-size: 25px;padding-top: 20px;">
+		Welcome to the face attendance system
+	</div>
+	<form style="padding-top: 20px;" method="POST" action="{% url 'addUser' %}">
+		{% csrf_token %}
+		<div class="row">
+			<div class="col-lg-4">
+				<input name="username" class="form-control" placeholder="Roll No or Name" type="text">
+			</div>
+			<div class="col-6">
+				<button type="submit" class="btn btn-primary">Add user</button>
+			</div>
+		</div>
+	</form>
+	<form method="POST" action="{% url 'updatesystem' %}">
+		{% csrf_token %}
+		<button type="submit" style="margin-top: 6px;" class="btn btn-primary">update</button>
+	</form>
 
-<form method="POST" action="{% url 'startsystem' %}">
-	{% csrf_token %}
-	<button type="submit">start recognition</button>
-</form>
+	<form method="POST" action="{% url 'startsystem' %}">
+		{% csrf_token %}
+		<button type="submit" style="margin-top: 6px;" class="btn btn-primary">start recognition</button>
+	</form>
 
-<form method="POST" action="{% url 'stopsystem' %}">
-	{% csrf_token %}
-	<button type="submit">stop recognition</button>
-</form>
+	<form method="POST" action="{% url 'stopsystem' %}">
+		{% csrf_token %}
+		<button style="margin-top: 6px;" type="submit" class="btn btn-primary">stop recognition</button>
+	</form>
+	<hr>
+	<div style="float: right;">
+		<input id="date-value" class="form-control btn-primary" onchange="dateChanged()" type="date">
+	</div>
+	<br>
+	<div id="result-list">
+		<h5 style="margin-top: 40px;">Today's Presentees: <span style="font-size: 21px;float: right;">{{today}}</span>
+		</h5>
+		<hr>
+		<div style="padding-top: 8px;">
+			{% for each in attendance %}
+			<div style="color: blue;">
+				<div class="row">
+					<div class="col-6">{{each.user.username}}</div>
+					<div class="col-6">{{each.timestamp.time}}</div>
+				</div>
+			</div>
+			<hr>
 
-{% endblock %}
+			{% endfor %}
+		</div>
+
+
+	</div>
+
+	<script>
+		function dateChanged() {
+			var date = document.getElementById('date-value');
+			var result = document.getElementById('result-list');
+			console.log(date.value);
+			$.ajax({
+				url: "{% url 'dateAttendance' %}",
+				method: "POST",
+				data: { 'date': date.value, 'csrfmiddlewaretoken': "{{csrf_token}}", },
+				success: function (data) {
+					result.innerHTML = data['html']
+				}
+			});
+		}
+	</script>
+
+
+	{% endblock %}

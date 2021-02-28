@@ -24,7 +24,7 @@ SECRET_KEY = '5ce0sfr479%+@2za%96wbkkh6q_-*e%om6=xx@*t@d@(b6eu3g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-USE_INTEGERATED_WEB_CAM = False
+USE_INTEGERATED_WEB_CAM = True
 
 REMOTE_CAM_URL = 'http://192.168.137.230:8080/shot.jpg'
 

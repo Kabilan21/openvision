@@ -1,0 +1,15 @@
+<h5 style="margin-top: 20px;">Presentees: <span style="font-size: 21px;float: right;">{{today}}</span>
+</h5>
+<hr>
+<div style="padding-top: 8px;">
+    {% for each in attendance %}
+    <div style="color: blue;">
+        <div class="row">
+            <div class="col-6">{{each.user.username}}</div>
+            <div class="col-6">{{each.timestamp.time}}</div>
+        </div>
+    </div>
+    <hr>
+
+    {% endfor %}
+</div>

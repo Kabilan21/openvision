@@ -1,14 +1,23 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from visionapi.adduser import addimage
 from .models import User
 from visionapi.updatesystem import updateapi
 from visionapi.recognition import check
 import json
+from datetime import datetime, timedelta
+from .models import Attendance
+from django.template.loader import render_to_string
 
 
 def homePage(request):
-    return render(request, 'homeview/home.html')
+    today = datetime.today()
+    queryset = Attendance.objects.filter(timestamp__date=today)
+    context = {
+        'today': datetime.today(),
+        'attendance': queryset
+    }
+    return render(request, 'homeview/home.html', context=context)
 
 
 def adduser(request):
@@ -37,3 +46,17 @@ def stopsystem(request):
     with open("files/controller.json", "w") as outfile:
         json.dump({"status": False}, outfile)
     return HttpResponse("Stopped successfully...")
+
+
+def dateAttendace(request):
+    date = request.POST.get('date')
+    today = datetime.strptime(date, "%Y-%m-%d").date()
+    queryset = Attendance.objects.filter(timestamp__date=today)
+    print(queryset)
+    context = {
+        'today': today,
+        'attendance': queryset
+    }
+    html_data = render_to_string(
+        'homeview/date_change_template.html', context=context)
+    return JsonResponse({'html': html_data})

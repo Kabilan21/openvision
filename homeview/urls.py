@@ -6,4 +6,5 @@ urlpatterns = [
     path('update/user', views.updatesystem, name='updatesystem'),
     path('start/system', views.startsystem, name='startsystem'),
     path('stop/system', views.stopsystem, name='stopsystem'),
+    path('date/attendance', views.dateAttendace, name='dateAttendance')
 ]
